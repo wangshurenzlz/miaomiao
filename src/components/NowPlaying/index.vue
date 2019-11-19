@@ -3,24 +3,11 @@
         <Loading v-if="isLoading"/>
         <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
             <ul>
-            <!--  <li>
-                    <div class="pic_show"><img src="/images/movie_1.jpg"></div>
-                    <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评 <span class="grade">9.2</span></p>
-                        <p>主演: 陈建斌,任素汐,潘斌龙</p>
-                        <p>今天55家影院放映607场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li> -->
-                <!-- <li ref="sx" style="display:none;"> {{pullDownMsg}} </li> -->
                 <li class="pullDown"> {{pullDownMsg}} </li>
                 <li v-for="item in movieList" :key="item.id">
-                    <div class="pic_show"  @tap="handeleToDetail"><img :src="item.img | setWH('128.180')"></div>
+                    <div class="pic_show"  @tap="handeleToDetail(item.id)"><img :src="item.img | setWH('128.180')"></div>
                     <div class="info_list">
-                        <h2>{{ item.nm }} <img v-if="item.version" src="@/assets/maxs.png"> </h2>
+                        <h2 @tap="handeleToDetail(item.id)">{{ item.nm }} <img v-if="item.version" src="@/assets/maxs.png"> </h2>
                         <p>观众评 <span class="grade">{{ item.sc }}</span></p>
                         <p>主演: {{ item.star }}</p>
                         <p>{{ item.showInfo }}</p>
@@ -96,8 +83,9 @@ export default {
         });
     },
     methods: {
-        handeleToDetail(){
-            console.log("hhhh");
+        handeleToDetail(movieId){
+            // console.log(movieId);
+            this.$router.push('/movie/detail/1/' + movieId);
         },
         handleToScroll(pos){
             if (pos.y > 30) {
